@@ -12,7 +12,7 @@ import timber.log.Timber;
 public class NavigationApplication extends Application {
 
   private static final String LOG_TAG = NavigationApplication.class.getSimpleName();
-  private static final String DEFAULT_MAPBOX_ACCESS_TOKEN = "YOUR_MAPBOX_ACCESS_TOKEN_GOES_HERE";
+  private static final String DEFAULT_MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoienVvMTE4OCIsImEiOiJEaE5TeXJZIn0.xSPvN9vzgYyEiCjsspGN2g";
 
   @Override
   public void onCreate() {
