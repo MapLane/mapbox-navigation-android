@@ -28,6 +28,10 @@ public class VoiceInstructionMilestone extends Milestone {
     if (shouldAddInstructions(routeProgress)) {
       stepVoiceInstructions = routeProgress.currentLegProgress().currentStep().voiceInstructions();
     }
+    //目前osrm voice暂时没有
+    if(stepVoiceInstructions == null){
+      return false;
+    }
     for (VoiceInstructions voice : stepVoiceInstructions) {
       if (shouldBeVoiced(routeProgress, voice)) {
         announcement = voice.announcement();

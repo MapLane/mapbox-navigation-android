@@ -54,9 +54,13 @@ public final class NavigationRoute {
    * @since 0.5.0
    */
   public static Builder builder() {
+      //暂时没有拥堵信息
     return new Builder()
-      .annotations(DirectionsCriteria.ANNOTATION_CONGESTION)
-      .profile(DirectionsCriteria.PROFILE_DRIVING_TRAFFIC);
+      .annotations("true")
+      .profile(DirectionsCriteria.PROFILE_DRIVING);
+    //不兼容osrm
+      /*.annotations(DirectionsCriteria.ANNOTATION_CONGESTION)
+      .profile(DirectionsCriteria.PROFILE_DRIVING_TRAFFIC);*/
   }
 
   /**

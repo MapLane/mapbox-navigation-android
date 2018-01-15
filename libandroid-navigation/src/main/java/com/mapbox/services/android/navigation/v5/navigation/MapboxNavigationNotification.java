@@ -145,10 +145,11 @@ class MapboxNavigationNotification implements NavigationNotification {
   }
 
   private void updateInstructionText(LegStep step) {
-    if (instructionText == null || newInstructionText(step)) {
+    //目前osrm 没有bannner instruction
+    /*if (instructionText == null || newInstructionText(step)) {
       instructionText = step.bannerInstructions().get(0).primary().text();
       notificationRemoteViews.setTextViewText(R.id.notificationInstructionText, instructionText);
-    }
+    }*/
   }
 
   private boolean newInstructionText(LegStep step) {
