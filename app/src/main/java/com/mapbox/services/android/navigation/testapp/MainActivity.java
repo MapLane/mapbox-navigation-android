@@ -1,5 +1,6 @@
 package com.mapbox.services.android.navigation.testapp;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.mapbox.services.android.navigation.testapp.activity.MockNavigationAct
 import com.mapbox.services.android.navigation.testapp.activity.RerouteActivity;
 import com.mapbox.services.android.navigation.testapp.activity.navigationui.NavigationMapRouteActivity;
 import com.mapbox.services.android.navigation.testapp.activity.navigationui.NavigationViewActivity;
+import com.mapbox.services.android.navigation.ui.v5.WaypointNavigationActivity;
 import com.mapbox.services.android.telemetry.permissions.PermissionsListener;
 import com.mapbox.services.android.telemetry.permissions.PermissionsManager;
 
@@ -24,6 +26,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements PermissionsListener {
+
+  private static final String[] PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION,
+    Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_NETWORK_STATE};
 
   private RecyclerView recyclerView;
   private PermissionsManager permissionsManager;
@@ -53,6 +58,11 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
         getString(R.string.title_navigation_route_ui),
         getString(R.string.description_navigation_route_ui),
         NavigationMapRouteActivity.class
+      ),
+      new SampleItem(
+        getString(R.string.title_waypoint_navigation),
+        getString(R.string.description_waypoint_navigation),
+        WaypointNavigationActivity.class
       )
     ));
 
@@ -72,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
     permissionsManager = new PermissionsManager(this);
     if (!PermissionsManager.areLocationPermissionsGranted(this)) {
       recyclerView.setEnabled(false);
-      permissionsManager.requestLocationPermissions(this);
+      permissionsManager.requestPermissions(this, PERMISSIONS);
     }
   }
 

@@ -1,6 +1,7 @@
 package com.mapbox.services.android.navigation.ui.v5;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.LifecycleOwner;
@@ -23,6 +24,7 @@ import android.widget.ImageView;
 
 import com.mapbox.api.directions.v5.models.DirectionsRoute;
 import com.mapbox.geojson.Point;
+import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
@@ -40,6 +42,9 @@ import com.mapbox.services.android.navigation.ui.v5.utils.ViewUtils;
 import com.mapbox.services.android.navigation.v5.location.MockLocationEngine;
 import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigation;
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * View that creates the drop-in UI.
@@ -84,6 +89,8 @@ public class NavigationView extends CoordinatorLayout implements LifecycleObserv
   private LocationLayerPlugin locationLayer;
   private OnNavigationReadyCallback onNavigationReadyCallback;
   private boolean resumeState;
+  private boolean isInitialized;
+  private List<Marker> markers = new ArrayList<>();
 
   public NavigationView(Context context) {
     this(context, null);
@@ -161,6 +168,20 @@ public class NavigationView extends CoordinatorLayout implements LifecycleObserv
     resetBottomSheetState(bottomSheetState);
   }
 
+
+  /**
+   * Called to ensure the {@link MapView} is destroyed
+   * properly.
+   * <p>
+   * In an {@link Activity} this should be in {@link Activity#onDestroy()}.
+   * <p>
+   * In a {@link android.app.Fragment}, this should be in {@link Fragment#onDestroyView()}.
+   */
+  public void onDestroy() {
+    mapView.onDestroy();
+    navigationViewModel.onDestroy();
+  }
+
   /**
    * Fired after the map is ready, this is our cue to finish
    * setting up the rest of the plugins / location engine.
@@ -182,7 +203,7 @@ public class NavigationView extends CoordinatorLayout implements LifecycleObserv
         initLifecycleObservers();
         initNavigationPresenter();
         initClickListeners();
-        map.setOnScrollListener(NavigationView.this);
+        map.addOnScrollListener(NavigationView.this);
         onNavigationReadyCallback.onNavigationReady();
       }
     });
@@ -250,9 +271,9 @@ public class NavigationView extends CoordinatorLayout implements LifecycleObserv
   public void addMarker(Point position) {
     LatLng markerPosition = new LatLng(position.latitude(),
       position.longitude());
-    map.addMarker(new MarkerOptions()
+    markers.add(map.addMarker(new MarkerOptions()
       .position(markerPosition)
-      .icon(ThemeSwitcher.retrieveMapMarker(getContext())));
+      .icon(ThemeSwitcher.retrieveMapMarker(getContext()))));
   }
 
   /**
@@ -327,18 +348,23 @@ public class NavigationView extends CoordinatorLayout implements LifecycleObserv
    * @param options with containing route / coordinate data
    */
   public void startNavigation(NavigationViewOptions options) {
+    clearMarkers();
+
     // Initialize navigation with options from NavigationViewOptions
-    navigationViewModel.initializeNavigationOptions(getContext().getApplicationContext(),
-      options.navigationOptions().toBuilder().isFromNavigationUi(true).build());
-    // Initialize the camera (listens to MapboxNavigation)
-    initCamera();
-
-    setupListeners(options);
-
+    if (!isInitialized) {
+      navigationViewModel.initializeNavigationOptions(getContext().getApplicationContext(),
+        options.navigationOptions().toBuilder().isFromNavigationUi(true).build());
+      // Initialize the camera (listens to MapboxNavigation)
+      initCamera();
+      setupListeners(options);
+      // Everything is setup, subscribe to the view models
+      subscribeViewModels();
+      // Initialized and navigating at this point
+      isInitialized = true;
+    }
+    // Update the view models
     locationViewModel.updateShouldSimulateRoute(options.shouldSimulateRoute());
     routeViewModel.extractRouteOptions(options);
-    // Everything is setup, subscribe to the view models
-    subscribeViewModels();
   }
 
   /**
@@ -352,6 +378,16 @@ public class NavigationView extends CoordinatorLayout implements LifecycleObserv
   public void getNavigationAsync(OnNavigationReadyCallback onNavigationReadyCallback) {
     this.onNavigationReadyCallback = onNavigationReadyCallback;
     mapView.getMapAsync(this);
+  }
+
+  /**
+   * Gives the ability to manipulate the map directly for anything that might not currently be
+   * supported. This returns null until the view is initialized
+   *
+   * @return mapbox map object, or null if view has not been initialized
+   */
+  public MapboxMap getMapboxMap() {
+    return map;
   }
 
   private void init() {
@@ -401,7 +437,7 @@ public class NavigationView extends CoordinatorLayout implements LifecycleObserv
    * route.
    */
   private void initRoute() {
-    int routeStyleRes = ThemeSwitcher.retrieveNavigationViewRouteStyle(getContext());
+    int routeStyleRes = ThemeSwitcher.retrieveNavigationViewStyle(getContext(), R.attr.navigationViewRouteStyle);
     mapRoute = new NavigationMapRoute(null, mapView, map, routeStyleRes);
   }
 
@@ -436,7 +472,9 @@ public class NavigationView extends CoordinatorLayout implements LifecycleObserv
    */
   @SuppressWarnings( {"MissingPermission"})
   private void initLocationLayer() {
-    locationLayer = new LocationLayerPlugin(mapView, map, null);
+    int locationLayerStyleRes = ThemeSwitcher.retrieveNavigationViewStyle(getContext(),
+      R.attr.navigationViewLocationLayerStyle);
+    locationLayer = new LocationLayerPlugin(mapView, map, null, locationLayerStyleRes);
     locationLayer.setLocationLayerEnabled(LocationLayerMode.NAVIGATION);
   }
 
@@ -460,7 +498,6 @@ public class NavigationView extends CoordinatorLayout implements LifecycleObserv
     try {
       ((LifecycleOwner) getContext()).getLifecycle().addObserver(locationLayer);
       ((LifecycleOwner) getContext()).getLifecycle().addObserver(locationViewModel);
-      ((LifecycleOwner) getContext()).getLifecycle().addObserver(navigationViewModel);
     } catch (ClassCastException exception) {
       throw new ClassCastException("Please ensure that the provided Context is a valid LifecycleOwner");
     }
@@ -476,6 +513,7 @@ public class NavigationView extends CoordinatorLayout implements LifecycleObserv
 
   /**
    * Sets up the listeners in the dispatcher, as well as the listeners in the {@link MapboxNavigation}
+   *
    * @param navigationViewOptions that contains all listeners to attach
    */
   private void setupListeners(NavigationViewOptions navigationViewOptions) {
@@ -538,6 +576,15 @@ public class NavigationView extends CoordinatorLayout implements LifecycleObserv
     });
   }
 
+  /**
+   * Removes any markers on the map that were added using addMarker()
+   */
+  private void clearMarkers() {
+    for (int i = 0; i < markers.size(); i++) {
+      map.removeMarker(markers.remove(i));
+    }
+  }
+
   @OnLifecycleEvent(Lifecycle.Event.ON_START)
   public void onStart() {
     mapView.onStart();
@@ -556,10 +603,5 @@ public class NavigationView extends CoordinatorLayout implements LifecycleObserv
   @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
   public void onStop() {
     mapView.onStop();
-  }
-
-  @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-  public void onDestroy() {
-    mapView.onDestroy();
   }
 }
