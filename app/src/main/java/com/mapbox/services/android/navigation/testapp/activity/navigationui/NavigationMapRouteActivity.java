@@ -127,7 +127,7 @@ public class NavigationMapRouteActivity extends AppCompatActivity implements OnM
     MapboxDirections directions = MapboxDirections.builder()
       .origin(origin)
       .destination(destination)
-      .accessToken(Mapbox.getAccessToken())
+//      .accessToken(Mapbox.getAccessToken())
       .profile(DirectionsCriteria.PROFILE_DRIVING_TRAFFIC)
       .overview(DirectionsCriteria.OVERVIEW_FULL)
       .annotations(DirectionsCriteria.ANNOTATION_CONGESTION)
