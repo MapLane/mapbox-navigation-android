@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-  compileSdkVersion androidVersions.compileSdkVersion
+  compileSdkVersion 27
   buildToolsVersion androidVersions.buildToolsVersion
 
   defaultConfig {
@@ -11,6 +11,10 @@ android {
     versionCode 1
     versionName "0.1"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
   }
 
   buildTypes {
@@ -41,31 +45,24 @@ sonarqube {
 dependencies {
   // Mapbox Navigation SDK
   implementation project(':libandroid-navigation-ui')
-
   // Support libraries
   implementation dependenciesList.supportAppcompatV7
   implementation dependenciesList.supportConstraintLayout
-
   // Architecture libraries
   implementation dependenciesList.lifecycleExtensions
   annotationProcessor dependenciesList.lifecycleCompiler
-
   // Logging
   implementation dependenciesList.timber
-
   // Butter Knife
   implementation dependenciesList.butterKnife
   annotationProcessor dependenciesList.butterKnifeProcessor
-
   // Leak Canary
   debugImplementation dependenciesList.leakCanaryDebug
   releaseImplementation dependenciesList.leakCanaryRelease
   androidTestImplementation dependenciesList.leakCanaryTest
-
   // Unit Testing
   testImplementation dependenciesList.junit
   testImplementation dependenciesList.mockito
-
   // Instrumentation testing
   androidTestImplementation(dependenciesList.testEspressoCore, {
     exclude group: 'com.android.support', module: 'support-annotations'

@@ -274,7 +274,7 @@ public class RerouteActivity extends AppCompatActivity implements OnMapReadyCall
       polyline = mapboxMap.addPolyline(new PolylineOptions()
         .addAll(points)
         .color(Color.parseColor("#4264fb"))
-        .width(5));
+        .width(1));
     }
   }
 

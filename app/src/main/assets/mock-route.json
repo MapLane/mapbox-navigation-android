@@ -1,0 +1,691 @@
+{
+    "routes": [
+        {
+            "duration": 169.7,
+            "distance": 2123.5,
+            "legs": [
+                {
+                    "annotation": {
+                        "duration": [
+                            7.5,
+                            12.2,
+                            2.9,
+                            1.5,
+                            2.8,
+                            3.5,
+                            2.7,
+                            2.6,
+                            11.9,
+                            5.3,
+                            0.6,
+                            2.1,
+                            2.1,
+                            0.9,
+                            1.7,
+                            4.3,
+                            4.8,
+                            0.9,
+                            4.4,
+                            11.3,
+                            15.2,
+                            8,
+                            2,
+                            0.7,
+                            7.9,
+                            23.7,
+                            9.4,
+                            3.3,
+                            10.4,
+                            0.4
+                        ],
+                        "nodes": [
+                            1573678,
+                            3734,
+                            3800,
+                            256956,
+                            1827421,
+                            1827420,
+                            1827419,
+                            256957,
+                            9531,
+                            10933,
+                            169831,
+                            3801,
+                            1740047,
+                            200262,
+                            200263,
+                            3717,
+                            8145,
+                            200261,
+                            200260,
+                            8099,
+                            172452,
+                            11981,
+                            1740272,
+                            200310,
+                            200311,
+                            8100,
+                            8101,
+                            8102,
+                            8103,
+                            8104,
+                            3837
+                        ],
+                        "datasources": [
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ],
+                        "distance": [
+                            135.705744,
+                            135.081187,
+                            32.331725,
+                            16.501357,
+                            31.602949,
+                            39.003037,
+                            30.264479,
+                            28.930939,
+                            132.148886,
+                            59.221087,
+                            8.757101,
+                            23.278375,
+                            23.26169,
+                            10.375065,
+                            19.418437,
+                            48.200516,
+                            53.856269,
+                            10.469788,
+                            49.153394,
+                            151.266942,
+                            202.898118,
+                            106.160176,
+                            27.303943,
+                            9.969615,
+                            105.985558,
+                            316.592517,
+                            125.904463,
+                            43.89461,
+                            138.765049,
+                            7.237738
+                        ],
+                        "weight": [
+                            7.5,
+                            12.2,
+                            2.9,
+                            1.5,
+                            2.8,
+                            3.5,
+                            2.7,
+                            2.6,
+                            11.9,
+                            5.3,
+                            0.6,
+                            2.1,
+                            2.1,
+                            0.9,
+                            1.7,
+                            4.3,
+                            4.8,
+                            0.9,
+                            4.4,
+                            11.3,
+                            15.2,
+                            8,
+                            2,
+                            0.7,
+                            7.9,
+                            23.7,
+                            9.4,
+                            3.3,
+                            10.4,
+                            0.4
+                        ],
+                        "speed": [
+                            18.1,
+                            11.1,
+                            11.1,
+                            11,
+                            11.3,
+                            11.1,
+                            11.2,
+                            11.1,
+                            11.1,
+                            11.2,
+                            14.6,
+                            11.1,
+                            11.1,
+                            11.5,
+                            11.4,
+                            11.2,
+                            11.2,
+                            11.6,
+                            11.2,
+                            13.4,
+                            13.3,
+                            13.3,
+                            13.7,
+                            14.2,
+                            13.4,
+                            13.4,
+                            13.4,
+                            13.3,
+                            13.3,
+                            18.1
+                        ]
+                    },
+                    "duration": 169.7,
+                    "summary": "双清路, 清华东路",
+                    "distance": 2123.5,
+                    "weight": 169.7,
+                    "steps": [
+                        {
+                            "mode": "driving",
+                            "duration": 7.6,
+                            "distance": 135.7,
+                            "bannerInstructions": [
+                                {
+                                    "secondary": null,
+                                    "modifier": "straight",
+                                    "distanceAlongGeometry": 135.7,
+                                    "type": "arrive",
+                                    "primary": {
+                                        "components": [
+                                            {
+                                                "text": "右转，上双清路"
+                                            }
+                                        ],
+                                        "text": "右转，上双清路"
+                                    }
+                                }
+                            ],
+                            "name": "中关村东路",
+                            "weight": 7.6,
+                            "geometry": "y}}gkAiz_{|EgkAd@",
+                            "adun_lanes": [
+                                "y}}gkAuy_{|EaDa@"
+                            ],
+                            "driving_side": "right",
+                            "intersections": [
+                                {
+                                    "entry": [
+                                        true
+                                    ],
+                                    "bearings": [
+                                        359
+                                    ],
+                                    "location": [
+                                        116.326837,
+                                        39.992813
+                                    ],
+                                    "out": 0
+                                }
+                            ],
+                            "maneuver": {
+                                "instruction": "出发向北，上中关村东路",
+                                "modifier": "right",
+                                "bearing_after": 359,
+                                "bearing_before": 0,
+                                "location": [
+                                    116.326837,
+                                    39.992813
+                                ],
+                                "type": "depart"
+                            }
+                        },
+                        {
+                            "mode": "driving",
+                            "duration": 67.9,
+                            "distance": 751.9,
+                            "bannerInstructions": [
+                                {
+                                    "secondary": null,
+                                    "modifier": "straight",
+                                    "distanceAlongGeometry": 751.9,
+                                    "type": "arrive",
+                                    "primary": {
+                                        "components": [
+                                            {
+                                                "text": "右转，上清华东路"
+                                            }
+                                        ],
+                                        "text": "右转，上清华东路"
+                                    }
+                                }
+                            ],
+                            "name": "双清路",
+                            "weight": 67.9,
+                            "geometry": "aj`hkAcy_{|Egv@}bAwLoN_F}FkKsOcOkRiKiNuJwMuo@ehAiRkb@iBwCsHqJgJuGsD_AoI{ByY_D}[qJsDgAmYmI",
+                            "adun_lanes": [
+                                "aj`hkA{w_{|Egv@}bAwLoN_F}FkKsOcOkRiKiNuJwMuo@ehAiRkb@iBwCsHqJgJuGsD_AoI{ByY_D}[qJsDgAmYmI"
+                            ],
+                            "driving_side": "right",
+                            "intersections": [
+                                {
+                                    "entry": [
+                                        true,
+                                        false,
+                                        true
+                                    ],
+                                    "bearings": [
+                                        45,
+                                        180,
+                                        225
+                                    ],
+                                    "in": 1,
+                                    "location": [
+                                        116.326818,
+                                        39.994033
+                                    ],
+                                    "out": 0
+                                },
+                                {
+                                    "entry": [
+                                        true,
+                                        true,
+                                        false
+                                    ],
+                                    "bearings": [
+                                        45,
+                                        180,
+                                        225
+                                    ],
+                                    "in": 2,
+                                    "location": [
+                                        116.327905,
+                                        39.994917
+                                    ],
+                                    "out": 0
+                                },
+                                {
+                                    "entry": [
+                                        true,
+                                        false,
+                                        true
+                                    ],
+                                    "bearings": [
+                                        45,
+                                        225,
+                                        315
+                                    ],
+                                    "in": 1,
+                                    "location": [
+                                        116.328153,
+                                        39.995137
+                                    ],
+                                    "out": 0
+                                },
+                                {
+                                    "entry": [
+                                        true,
+                                        false,
+                                        true
+                                    ],
+                                    "bearings": [
+                                        45,
+                                        225,
+                                        315
+                                    ],
+                                    "in": 1,
+                                    "location": [
+                                        116.329101,
+                                        39.995902
+                                    ],
+                                    "out": 0
+                                },
+                                {
+                                    "entry": [
+                                        true,
+                                        false,
+                                        true
+                                    ],
+                                    "bearings": [
+                                        60,
+                                        225,
+                                        330
+                                    ],
+                                    "in": 1,
+                                    "location": [
+                                        116.330508,
+                                        39.996868
+                                    ],
+                                    "out": 0
+                                },
+                                {
+                                    "entry": [
+                                        false,
+                                        true,
+                                        true,
+                                        false
+                                    ],
+                                    "bearings": [
+                                        0,
+                                        45,
+                                        180,
+                                        240
+                                    ],
+                                    "in": 3,
+                                    "location": [
+                                        116.331074,
+                                        39.997177
+                                    ],
+                                    "out": 1
+                                },
+                                {
+                                    "entry": [
+                                        true,
+                                        true,
+                                        false,
+                                        false
+                                    ],
+                                    "bearings": [
+                                        0,
+                                        45,
+                                        180,
+                                        225
+                                    ],
+                                    "in": 3,
+                                    "location": [
+                                        116.33115,
+                                        39.99723
+                                    ],
+                                    "out": 1
+                                },
+                                {
+                                    "entry": [
+                                        true,
+                                        false,
+                                        true
+                                    ],
+                                    "bearings": [
+                                        15,
+                                        195,
+                                        240
+                                    ],
+                                    "in": 1,
+                                    "location": [
+                                        116.331568,
+                                        39.997822
+                                    ],
+                                    "out": 0
+                                }
+                            ],
+                            "maneuver": {
+                                "instruction": "右转，上双清路",
+                                "modifier": "right",
+                                "bearing_after": 42,
+                                "bearing_before": 358,
+                                "location": [
+                                    116.326818,
+                                    39.994033
+                                ],
+                                "type": "turn"
+                            }
+                        },
+                        {
+                            "mode": "driving",
+                            "duration": 93.8,
+                            "distance": 1228.7,
+                            "bannerInstructions": [
+                                {
+                                    "secondary": null,
+                                    "modifier": "straight",
+                                    "distanceAlongGeometry": 1228.7,
+                                    "type": "arrive",
+                                    "primary": {
+                                        "components": [
+                                            {
+                                                "text": "右转，上学院路"
+                                            }
+                                        ],
+                                        "text": "右转，上学院路"
+                                    }
+                                }
+                            ],
+                            "name": "清华东路",
+                            "weight": 93.8,
+                            "geometry": "unjhkAg_j{|Es@}mBwBwsCiAylAY_S@iFgAulAiDcgFcAi{ASe_@cAwdB",
+                            "adun_lanes": [
+                                "}ojhkAg_j{|Es@}mBwBwsCiAylAY_S@iFgAulAiDcgFcAi{ASe_@cAwdB"
+                            ],
+                            "driving_side": "right",
+                            "intersections": [
+                                {
+                                    "entry": [
+                                        true,
+                                        true,
+                                        false
+                                    ],
+                                    "bearings": [
+                                        15,
+                                        90,
+                                        195
+                                    ],
+                                    "in": 2,
+                                    "location": [
+                                        116.332036,
+                                        39.999227
+                                    ],
+                                    "out": 1
+                                },
+                                {
+                                    "entry": [
+                                        true,
+                                        true,
+                                        true,
+                                        false
+                                    ],
+                                    "bearings": [
+                                        15,
+                                        90,
+                                        195,
+                                        270
+                                    ],
+                                    "in": 3,
+                                    "location": [
+                                        116.333811,
+                                        39.999253
+                                    ],
+                                    "out": 1
+                                },
+                                {
+                                    "entry": [
+                                        true,
+                                        true,
+                                        false
+                                    ],
+                                    "bearings": [
+                                        90,
+                                        180,
+                                        270
+                                    ],
+                                    "in": 2,
+                                    "location": [
+                                        116.339116,
+                                        39.999398
+                                    ],
+                                    "out": 0
+                                },
+                                {
+                                    "entry": [
+                                        true,
+                                        true,
+                                        false
+                                    ],
+                                    "bearings": [
+                                        0,
+                                        90,
+                                        270
+                                    ],
+                                    "in": 2,
+                                    "location": [
+                                        116.34283,
+                                        39.999483
+                                    ],
+                                    "out": 1
+                                }
+                            ],
+                            "maneuver": {
+                                "instruction": "右转，上清华东路",
+                                "modifier": "right",
+                                "bearing_after": 88,
+                                "bearing_before": 15,
+                                "location": [
+                                    116.332036,
+                                    39.999227
+                                ],
+                                "type": "turn"
+                            }
+                        },
+                        {
+                            "mode": "driving",
+                            "duration": 0.4,
+                            "distance": 7.2,
+                            "bannerInstructions": [
+                                {
+                                    "secondary": null,
+                                    "modifier": "straight",
+                                    "distanceAlongGeometry": 7.2,
+                                    "type": "arrive",
+                                    "primary": {
+                                        "components": [
+                                            {
+                                                "text": "您已经到达您的个目的地"
+                                            }
+                                        ],
+                                        "text": "您已经到达您的个目的地"
+                                    }
+                                }
+                            ],
+                            "name": "学院路",
+                            "weight": 0.4,
+                            "geometry": "qckhkAcdf||E`CG",
+                            "driving_side": "right",
+                            "intersections": [
+                                {
+                                    "entry": [
+                                        true,
+                                        true,
+                                        true,
+                                        false,
+                                        false
+                                    ],
+                                    "bearings": [
+                                        88,
+                                        177,
+                                        182,
+                                        268,
+                                        357
+                                    ],
+                                    "in": 3,
+                                    "location": [
+                                        116.34645,
+                                        39.999561
+                                    ],
+                                    "out": 1
+                                }
+                            ],
+                            "maneuver": {
+                                "instruction": "右转，上学院路",
+                                "modifier": "right",
+                                "bearing_after": 175,
+                                "bearing_before": 87,
+                                "location": [
+                                    116.34645,
+                                    39.999561
+                                ],
+                                "type": "turn"
+                            }
+                        },
+                        {
+                            "mode": "driving",
+                            "duration": 0,
+                            "distance": 0,
+                            "bannerInstructions": [],
+                            "name": "学院路",
+                            "weight": 0,
+                            "geometry": "o_khkAkdf||E",
+                            "driving_side": "right",
+                            "intersections": [
+                                {
+                                    "entry": [
+                                        true
+                                    ],
+                                    "bearings": [
+                                        357
+                                    ],
+                                    "in": 0,
+                                    "location": [
+                                        116.346454,
+                                        39.999496
+                                    ]
+                                }
+                            ],
+                            "maneuver": {
+                                "instruction": "您已经到达您的个目的地",
+                                "bearing_after": 0,
+                                "location": [
+                                    116.346454,
+                                    39.999496
+                                ],
+                                "bearing_before": 177,
+                                "type": "arrive"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "weight_name": "routability",
+            "weight": 169.7,
+            "geometry": "y}}gkAiz_{|EgkAd@gv@}bAwLoN_F}FkKsOcOkRiKiNuJwMuo@ehAiRkb@iBwCsHqJgJuGsD_AoI{ByY_D}[qJsDgAmYmIs@}mBwBwsCiAylAY_S@iFgAulAiDcgFcAi{ASe_@cAwdB`CG",
+            "adun_lanes": [
+                "aj`hkA{w_{|Egv@}bAwLoN_F}FkKsOcOkRiKiNuJwMuo@ehAiRkb@iBwCsHqJgJuGsD_AoI{ByY_D}[qJsDgAmYmIg@g@s@}mBwBwsCiAylAY_S@iFgAulAiDcgFcAi{ASe_@cAwdB"
+            ]
+        }
+    ],
+    "code": "Ok",
+    "waypoints": [
+        {
+            "hint": "IGQCgP___38AAAAASwAAAA4AAAAAAAAAAAAAAEsAAAAOAAAAAAAAAJwAAAC1Ae8G7T1iAjsD7wbuPWICAQB_Fk9TUk0=",
+            "name": "中关村东路",
+            "location": [
+                116.326837,
+                39.992813
+            ]
+        },
+        {
+            "hint": "dAEEgP___38EAAAAegAAAAAAAAAAAAAABAAAAHoAAAAAAAAAAAAAAJwAAABWTu8GCFhiAlxO7wYIWGICAAAfC09TUk0=",
+            "name": "学院路",
+            "location": [
+                116.346454,
+                39.999496
+            ]
+        }
+    ]
+}

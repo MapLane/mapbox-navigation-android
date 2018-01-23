@@ -45,6 +45,8 @@ import com.mapbox.turf.TurfMisc;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.mapbox.mapboxsdk.style.functions.stops.Stop.stop;
 import static com.mapbox.mapboxsdk.style.functions.stops.Stops.categorical;
@@ -325,12 +327,12 @@ public class NavigationMapRoute implements ProgressChangeListener, MapView.OnMap
 
       // Add the layer IDs to a list so we can quickly remove them when needed without traversing
       // through all the map layers.
-      layerIds.add(String.format(Locale.US, ID_FORMAT, GENERIC_ROUTE_SHIELD_LAYER_ID, index));
+//      layerIds.add(String.format(Locale.US, ID_FORMAT, GENERIC_ROUTE_SHIELD_LAYER_ID, index));
       layerIds.add(String.format(Locale.US, ID_FORMAT, GENERIC_ROUTE_LAYER_ID, index));
 
       // Add the route shield first followed by the route to ensure the shield is always on the
       // bottom.
-      addRouteShieldLayer(layerIds.get(layerIds.size() - 2), sourceId, index);
+//      addRouteShieldLayer(layerIds.get(layerIds.size() - 2), sourceId, index);
       addRouteLayer(layerIds.get(layerIds.size() - 1), sourceId, index);
     }
   }
@@ -414,17 +416,18 @@ public class NavigationMapRoute implements ProgressChangeListener, MapView.OnMap
    */
   private void addRouteLayer(String layerId, String sourceId, int index) {
     float scale = index == primaryRouteIndex ? routeScale : alternativeRouteScale;
+    float factor = 0.125f;
     Layer routeLayer = new LineLayer(layerId, sourceId).withProperties(
       PropertyFactory.lineCap(Property.LINE_CAP_ROUND),
       PropertyFactory.lineJoin(Property.LINE_JOIN_ROUND),
       PropertyFactory.lineWidth(Function.zoom(
         exponential(
-          stop(4f, PropertyFactory.lineWidth(3f * scale)),
-          stop(10f, PropertyFactory.lineWidth(4f * scale)),
-          stop(13f, PropertyFactory.lineWidth(6f * scale)),
-          stop(16f, PropertyFactory.lineWidth(10f * scale)),
-          stop(19f, PropertyFactory.lineWidth(14f * scale)),
-          stop(22f, PropertyFactory.lineWidth(18f * scale))
+          stop(4f * factor, PropertyFactory.lineWidth(3f * scale * factor)),
+          stop(10f * factor, PropertyFactory.lineWidth(4f * scale * factor)),
+          stop(13f * factor, PropertyFactory.lineWidth(6f * scale * factor)),
+          stop(16f * factor, PropertyFactory.lineWidth(10f * scale * factor)),
+          stop(19f * factor, PropertyFactory.lineWidth(14f * scale * factor)),
+          stop(22f * factor, PropertyFactory.lineWidth(18f * scale * factor))
         ).withBase(1.5f))
       ),
       PropertyFactory.lineColor(
@@ -707,10 +710,20 @@ public class NavigationMapRoute implements ProgressChangeListener, MapView.OnMap
     final List<Feature> features = new ArrayList<>();
     LineString originalGeometry = LineString.fromPolyline(route.geometry(), Constants.PRECISION_6);
     Feature feat = Feature.fromGeometry(originalGeometry);
+    List<Feature> lanes = Optional.ofNullable(route.adunLanes()).map(list -> list.stream()
+            .map(lane -> {
+              Feature feature = Feature.fromGeometry(LineString.fromPolyline(lane, Constants.PRECISION_6));
+              feature.addStringProperty(SOURCE_KEY, String.format(Locale.CHINA, ID_FORMAT,
+                      GENERIC_ROUTE_SOURCE_ID, index));
+              feature.addNumberProperty(INDEX_KEY, index);
+              return feature;
+            })
+            .collect(Collectors.toList())).orElseGet(ArrayList::new);
     feat.addStringProperty(SOURCE_KEY, String.format(Locale.US, ID_FORMAT, GENERIC_ROUTE_SOURCE_ID,
       index));
     feat.addNumberProperty(INDEX_KEY, index);
     features.add(feat);
+    features.addAll(lanes);
 
     LineString lineString = LineString.fromPolyline(route.geometry(), Constants.PRECISION_6);
     for (RouteLeg leg : route.legs()) {

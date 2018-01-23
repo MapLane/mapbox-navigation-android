@@ -42,7 +42,7 @@ import timber.log.Timber;
 public class NavigationMapRouteActivity extends AppCompatActivity implements OnMapReadyCallback,
   MapboxMap.OnMapLongClickListener, Callback<DirectionsResponse>, OnRouteSelectionChangeListener {
 
-  private static final String DIRECTIONS_RESPONSE = "directions-route.json";
+  private static final String DIRECTIONS_RESPONSE = "mock-route.json";
 
   @BindView(R.id.mapView)
   MapView mapView;
