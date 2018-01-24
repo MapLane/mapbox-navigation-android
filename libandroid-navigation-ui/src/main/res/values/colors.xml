@@ -6,6 +6,10 @@
   <color name="mapbox_navigation_route_layer_congestion_red">#E85552</color>
   <color name="mapbox_navigation_route_shield_layer_color">#2C5F99</color>
 
+  <!-- Spear of Adun system lane colors -->
+  <color name="momenta_lane">#de5af0</color>
+  <color name="momenta_lane_boundary">#f7e76e</color>
+
   <!-- Alternative route colors -->
   <color name="mapbox_navigation_route_alternative_color">#8694A5</color>
   <color name="mapbox_navigation_route_alternative_congestion_yellow">#BEA087</color>

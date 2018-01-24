@@ -71,6 +71,8 @@ import static com.mapbox.mapboxsdk.style.functions.stops.Stops.exponential;
 public class NavigationMapRoute implements ProgressChangeListener, MapView.OnMapChangedListener,
   MapboxMap.OnMapClickListener {
 
+  private static final String ADUN_LANE_KEY = "lane";
+
   private static final String CONGESTION_KEY = "congestion";
   private static final String SOURCE_KEY = "source";
   private static final String INDEX_KEY = "index";
@@ -86,6 +88,10 @@ public class NavigationMapRoute implements ProgressChangeListener, MapView.OnMap
 
   @StyleRes
   private int styleRes;
+  @ColorInt
+  private int laneColor;
+  @ColorInt
+  private int laneBoundaryColor;
   @ColorInt
   private int routeDefaultColor;
   @ColorInt
@@ -324,7 +330,7 @@ public class NavigationMapRoute implements ProgressChangeListener, MapView.OnMap
       String sourceId = featureCollections.get(i).getFeatures()
         .get(0).getStringProperty(SOURCE_KEY);
       int index = featureCollections.indexOf(featureCollections.get(i));
-
+      // TODO: separate lane drawing from routes.
       // Add the layer IDs to a list so we can quickly remove them when needed without traversing
       // through all the map layers.
 //      layerIds.add(String.format(Locale.US, ID_FORMAT, GENERIC_ROUTE_SHIELD_LAYER_ID, index));
@@ -422,12 +428,12 @@ public class NavigationMapRoute implements ProgressChangeListener, MapView.OnMap
       PropertyFactory.lineJoin(Property.LINE_JOIN_ROUND),
       PropertyFactory.lineWidth(Function.zoom(
         exponential(
-          stop(4f * factor, PropertyFactory.lineWidth(3f * scale * factor)),
-          stop(10f * factor, PropertyFactory.lineWidth(4f * scale * factor)),
-          stop(13f * factor, PropertyFactory.lineWidth(6f * scale * factor)),
-          stop(16f * factor, PropertyFactory.lineWidth(10f * scale * factor)),
-          stop(19f * factor, PropertyFactory.lineWidth(14f * scale * factor)),
-          stop(22f * factor, PropertyFactory.lineWidth(18f * scale * factor))
+          stop(4f, PropertyFactory.lineWidth(3f * scale * factor)),
+          stop(10f, PropertyFactory.lineWidth(4f * scale * factor)),
+          stop(13f, PropertyFactory.lineWidth(6f * scale * factor)),
+          stop(16f, PropertyFactory.lineWidth(10f * scale * factor)),
+          stop(19f, PropertyFactory.lineWidth(14f * scale * factor)),
+          stop(22f, PropertyFactory.lineWidth(18f * scale * factor))
         ).withBase(1.5f))
       ),
       PropertyFactory.lineColor(
@@ -439,7 +445,13 @@ public class NavigationMapRoute implements ProgressChangeListener, MapView.OnMap
           stop("severe", PropertyFactory.lineColor(
             index == primaryRouteIndex ? routeSevereColor : alternativeRouteSevereColor))
         )).withDefaultValue(PropertyFactory.lineColor(
-          index == primaryRouteIndex ? routeDefaultColor : alternativeRouteDefaultColor)))
+          index == primaryRouteIndex ? routeDefaultColor : alternativeRouteDefaultColor))),
+      PropertyFactory.lineColor(
+        Function.property(ADUN_LANE_KEY, categorical(
+          stop("lane", PropertyFactory.lineColor(laneColor)),
+          stop("lane_boundary", PropertyFactory.lineColor(laneBoundaryColor))
+        )).withDefaultValue(PropertyFactory.lineColor(
+                index == primaryRouteIndex ? routeDefaultColor : alternativeRouteDefaultColor)))
     );
     MapUtils.addLayerToMap(mapboxMap, routeLayer, belowLayer);
   }
@@ -475,6 +487,12 @@ public class NavigationMapRoute implements ProgressChangeListener, MapView.OnMap
     Context context = mapView.getContext();
     TypedArray typedArray
       = context.obtainStyledAttributes(styleRes, R.styleable.NavigationMapRoute);
+
+    //Spear of Adun attributes
+    laneColor = typedArray.getColor(R.styleable.NavigationMapRoute_laneColor,
+            ContextCompat.getColor(context, R.color.momenta_lane));
+    laneBoundaryColor = typedArray.getColor(R.styleable.NavigationMapRoute_laneBoundaryColor,
+            ContextCompat.getColor(context, R.color.momenta_lane_boundary));
 
     // Primary Route attributes
     routeDefaultColor = typedArray.getColor(R.styleable.NavigationMapRoute_routeColor,
@@ -713,6 +731,7 @@ public class NavigationMapRoute implements ProgressChangeListener, MapView.OnMap
     List<Feature> lanes = Optional.ofNullable(route.adunLanes()).map(list -> list.stream()
             .map(lane -> {
               Feature feature = Feature.fromGeometry(LineString.fromPolyline(lane, Constants.PRECISION_6));
+              feature.addStringProperty(ADUN_LANE_KEY, "lane");
               feature.addStringProperty(SOURCE_KEY, String.format(Locale.CHINA, ID_FORMAT,
                       GENERIC_ROUTE_SOURCE_ID, index));
               feature.addNumberProperty(INDEX_KEY, index);
